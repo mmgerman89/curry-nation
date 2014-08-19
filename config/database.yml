@@ -48,7 +48,9 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: curry-nation_production
-  username: curry-nation
-  password: <%= ENV['CURRY-NATION_DATABASE_PASSWORD'] %>
+  #username: curry-nation
+  #password: <%= ENV['CURRY-NATION_DATABASE_PASSWORD'] %>
+  pool: 5
