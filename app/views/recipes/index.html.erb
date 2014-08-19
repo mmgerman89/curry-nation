@@ -16,6 +16,7 @@
   </thead>
 
   <tbody>
+  	<% if @recipes %>
     <% @recipes.each do |recipe| %>
       <tr>
         <td><%= recipe.title %></td>
@@ -33,6 +34,7 @@
 	        		class: "btn btn-danger btn-small" %></td>
       	<% end %>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
