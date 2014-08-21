@@ -3,27 +3,27 @@
     <div id="error_explanation">
       <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
 
-      <ul>
       <% @recipe.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <div class="alert alert-danger" role="alert">
+        	<p><%= message %></p>
+        </div>
       <% end %>
-      </ul>
     </div>
   <% end %>
-
-  <div class="field">
+<div class="col-lg-6">
+  <div class="input-group">
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-control", placeholder: "Title" %>
   </div>
-  <div class="field">
+  <div class="input-group">
     <%= f.label :cooking_time %><br>
-    <%= f.text_field :cooking_time %>
+    <%= f.text_field :cooking_time, class: "form-control", placeholder: "Cooking time" %>
   </div>
   <div class="form-group">
     <%= f.label :difficulty_level %><br>
     <%= f.select :difficulty_level, Recipe::DIFFICULTY, {}, class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :food_type %><br>
     <%= f.select(:food_type_id,
     		options_from_collection_for_select(FoodType.all, :id, :name),
@@ -41,15 +41,16 @@
     		options_from_collection_for_select(Cuisine.all, :id, :name),
     		{ prompt: 'Please Choose' }, class: "form-control") %>
   </div>
-  <div class="field">
+  <div class="input-group">
     <%= f.label :ingredients %><br>
-    <%= f.text_area :ingredients %>
+    <%= f.text_area :ingredients, class: "form-control", placeholder: "Ingredients" %>
   </div>
-  <div class="field">
+  <div class="input-group">
     <%= f.label :procedure %><br>
-    <%= f.text_area :procedure %>
+    <%= f.text_area :procedure, class: "form-control", placeholder: "Procedure" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-default"%>
   </div>
+</div>
 <% end %>

@@ -39,21 +39,31 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-2">
-			<div class="panel panel-primary" id="panels">
-				<div class="panel-heading">Food Preferences</div>
-				<% sidebar_values %>
-				<% @food_preferences.each do |fp| %>
-					<p><%= fp.name %></p>
-				<% end %>
-				<div class="panel-heading">Food Types</div>
-				<% @food_types.each do |ft| %>
-					<p><%= ft.name %></p>
-				<% end %>
-				<div class="panel-heading">Cuisines</div>
-				<% @cuisines.each do |c| %>
-					<p><%= c.name %></p>
-				<% end %>
-			</div>
+			<% sidebar_values %>
+			
+			<%= form_tag(recipes_path, method: :get) do %>
+				<div class="panel panel-primary" id="panels">
+					<div class="panel-heading">Food Preferences</div>
+					<p><%= radio_button_tag 'food_preferences', '0', true %>All</p>
+					<% @food_preferences.each do |fp| %>
+						<p><%= radio_button_tag 'food_preferences', fp.id %><%= fp.name %></p>
+					<% end %>
+					
+					<div class="panel-heading">Food Types</div>
+					<p><%= radio_button_tag 'food_types', '0', true %>All</p>
+					<% @food_types.each do |ft| %>
+						<p><%= radio_button_tag 'food_types', ft.id %><%= ft.name %></p>
+					<% end %>
+					
+					<div class="panel-heading">Cuisines</div>
+					<p><%= radio_button_tag 'cuisines', '0', true %>All</p>
+					<% @cuisines.each do |c| %>
+						<p><%= radio_button_tag 'cuisines', c.id %><%= c.name %></p>
+					<% end %>
+					
+					<%= submit_tag("Filter") %>
+				</div>
+			<% end %>
 		</div>
 		<div class="col-lg-9">
 			<% if notice %>
