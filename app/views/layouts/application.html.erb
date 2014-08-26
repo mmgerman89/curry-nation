@@ -34,6 +34,7 @@
 						<% end %>
 					</ul>
 				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -41,37 +42,76 @@
 		<div class="col-lg-2">
 			<% sidebar_values %>
 			
-			<%= form_tag(recipes_path, method: :get) do %>
+			<%= form_for(:recipes, method: :get) do |f| %>
 				<div class="panel panel-primary" id="panels">
 					<div class="panel-heading">Food Preferences</div>
-					<p><%= radio_button_tag 'food_preferences', '0', true %>All</p>
+					<div class="input-group">
+						<% selected = params[:food_preferences] == "0" || (!params[:food_preferences].present?) %>
+						<%= radio_button_tag 'food_preferences', '0', selected %>
+						All
+					</div>
 					<% @food_preferences.each do |fp| %>
-						<p><%= radio_button_tag 'food_preferences', fp.id %><%= fp.name %></p>
+						<div class="input-group">
+							<% selected = params[:food_preferences] == "#{fp.id}" %>
+							<%= radio_button_tag 'food_preferences', fp.id, selected %>
+							<%= fp.name %>
+						</div>
 					<% end %>
 					
 					<div class="panel-heading">Food Types</div>
-					<p><%= radio_button_tag 'food_types', '0', true %>All</p>
+					<div class="input-group">
+						<% selected = (params[:food_types] == "0") || (!params[:food_types].present?) %>
+						<%= radio_button_tag 'food_types', '0', selected %>
+						All
+					</div>
 					<% @food_types.each do |ft| %>
-						<p><%= radio_button_tag 'food_types', ft.id %><%= ft.name %></p>
+						<div class="input-group">
+							<% selected = params[:food_types] == "#{ft.id}" %>
+							<%= radio_button_tag 'food_types', ft.id, selected %>
+							<%= ft.name %>
+						</div>
 					<% end %>
 					
 					<div class="panel-heading">Cuisines</div>
-					<p><%= radio_button_tag 'cuisines', '0', true %>All</p>
+					<div class="input-group">
+						<% selected = params[:cuisines] == "0" || (!params[:cuisines].present?) %>
+						<%= radio_button_tag 'cuisines', '0', selected %>
+						All
+					</div>	
 					<% @cuisines.each do |c| %>
-						<p><%= radio_button_tag 'cuisines', c.id %><%= c.name %></p>
+						<div class="input-group">
+							<% selected = params[:cuisines] == "#{c.id}" %>
+							<%= radio_button_tag 'cuisines', c.id, selected %>
+							<%= c.name %>
+						</div>
 					<% end %>
-					
-					<%= submit_tag("Filter") %>
 				</div>
+				<%= f.submit "Filter", class: "btn btn-default" %>
 			<% end %>
 		</div>
 		<div class="col-lg-9">
+			<div class="row">
+				<div class="col-lg-8"></div>
+				<div class="col-lg-4">
+					<%= form_for(:recipes, method: :get) do |f| %>
+						<div class="input-group">
+							<%= text_field_tag 'search', nil, placeholder: "Search", class: "form-control" %>
+							<span class="input-group-btn">
+								<%= f.submit "Search", class: "btn btn-default" %>
+							</span>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			
 			<% if notice %>
 				<p class="notice"><%= notice %></p>
 			<% end %>
+			
 			<% if alert %>
 				<p class="alert"><%= alert %></p>
 			<% end %>
+			
 			<%= yield %>
 		</div>
 	</div>
