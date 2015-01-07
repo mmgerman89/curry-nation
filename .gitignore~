@@ -16,4 +16,4 @@
 /tmp
 
 # Ignore project files
-/.project
+/*.project
